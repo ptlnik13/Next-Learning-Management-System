@@ -3,6 +3,7 @@ import "./globals.css";
 import {cn} from "@/lib/utils";
 import {Inter} from "next/font/google";
 import {Toaster} from "@/components/ui/sonner";
+import {dbConnect} from "../service/mongo";
 
 const geistSans = localFont({
     src     : "./fonts/GeistVF.woff",
@@ -22,7 +23,10 @@ export const metadata = {
 
 const poppins = Inter({subsets: ['Latin'], variable: '--font-poppins'});
 
-export default function RootLayout({children}) {
+export default async function RootLayout({children}) {
+    const conn = await dbConnect();
+    // console.log(conn);
+
     return (
         <html lang="en">
         <body
