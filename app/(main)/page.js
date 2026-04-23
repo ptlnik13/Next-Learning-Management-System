@@ -9,6 +9,7 @@ import {ArrowRightIcon} from "lucide-react";
 import {ArrowRight} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import {getCourseList} from "../../queries/courses";
 
 const categories = [
     {
@@ -54,50 +55,9 @@ const categories = [
     },
 ];
 
-const courses = [
-    {
-        id       : 1,
-        title    : "Design",
-        thumbnail: "/assets/images/categories/design.jpg",
-    },
-
-    {
-        id       : 3,
-        title    : "Development",
-        thumbnail: "/assets/images/categories/development.jpg",
-    },
-    {
-        id       : 4,
-        title    : "Marketing",
-        thumbnail: "/assets/images/categories/marketing.jpg",
-    },
-    {
-        id       : 5,
-        title    : "IT & Software",
-        thumbnail: "/assets/images/categories/it_software.jpg",
-    },
-    {
-        id       : 6,
-        title    : "Personal Development",
-        thumbnail: "/assets/images/categories/personal_development.jpg",
-    },
-    {
-        id       : 7,
-        title    : "Business",
-        thumbnail: "/assets/images/categories/business.jpg",
-    },
-    {
-        id       : 8,
-        title    : "Photography",
-        thumbnail: "/assets/images/categories/photography.jpg",
-    },
-    {
-        id       : 9,
-        title    : "Music",
-        thumbnail: "/assets/images/categories/music.jpg",
-    },
-];
-const HomePage = () => {
+const HomePage = async () => {
+    const courseList = await getCourseList();
+    console.log(courseList);
     return (
         <>
             <section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-32 grainy">
@@ -188,7 +148,7 @@ const HomePage = () => {
                     </Link>
                 </div>
                 <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-4">
-                    {courses.map((category) => {
+                    {courseList.map((category) => {
                         return (
                             <Link key={category.id} href={`/courses/${category.id}`}>
                                 <div
