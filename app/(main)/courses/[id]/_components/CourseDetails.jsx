@@ -55,7 +55,7 @@ const CourseDetails = ({course}) => {
                         </TabsContent>
                         <TabsContent value="curriculum">
                             {/* each tab content can be independent component */}
-                            <CourseCurriculam/>
+                            <CourseCurriculam course={course}/>
                         </TabsContent>
                         <TabsContent value="instructor">
                             {/* each tab content can be independent component */}
