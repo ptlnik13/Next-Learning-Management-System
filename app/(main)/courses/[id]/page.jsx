@@ -18,7 +18,7 @@ const SingleCoursePage = async ({params}) => {
                 thumbnail={course?.thumbnail}
             />
 
-            <CourseDetails/>
+            <CourseDetails course={course} />
 
             {
                 course?.testimonials && <Testimonials testimonials={replaceMongoIdInArray(course?.testimonials)} />
