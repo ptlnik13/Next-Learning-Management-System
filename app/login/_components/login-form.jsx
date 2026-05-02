@@ -15,7 +15,7 @@ import {credentialLogin} from "@/app/actions";
 import {useState} from "react";
 import {useRouter} from "next/navigation";
 
-export async function LoginForm() {
+export function LoginForm() {
 
     const [error, setError] = useState('');
     const router = useRouter();

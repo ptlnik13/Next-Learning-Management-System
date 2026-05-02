@@ -4,7 +4,7 @@ import {User} from "./model/user-model";
 import bcrypt from "bcryptjs";
 
 
-export const {handlers, auth, signIn, signOut} = NextAuth({
+export const {handlers: {GET, POST}, auth, signIn, signOut} = NextAuth({
         session  : {
             strategy: "jwt"
         },
