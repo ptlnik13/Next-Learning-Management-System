@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Logo from './logo';
 import {cn} from '@/lib/utils';
 
@@ -10,14 +10,19 @@ import {Menu} from 'lucide-react';
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from './ui/dropdown-menu';
 import {Avatar, AvatarFallback, AvatarImage} from './ui/avatar';
 import MobileNav from "./mobile-nav";
-import { useSession } from "next-auth/react";
+import {useSession, signOut} from "next-auth/react";
 
 const MainNav = ({items, children}) => {
-    const { data: session, status } = useSession();
+    const {status} = useSession();
     const [showMobileMenu, setShowMobileMenu] = useState(false);
 
     const isLoading = status === "loading";
     const isAuthenticated = status === "authenticated";
+
+    const handleLogout = async (e) => {
+        e.preventDefault();
+        await signOut();
+    }
 
     return (
         <>
@@ -77,7 +82,7 @@ const MainNav = ({items, children}) => {
                         <DropdownMenuTrigger asChild>
                             <div className='cursor-pointer'>
                                 <Avatar>
-                                    <AvatarImage src="https://github.com/shadcn.png" alt="@ariyan" />
+                                    <AvatarImage src="https://github.com/shadcn.png" alt="@ariyan"/>
                                     <AvatarFallback>CN</AvatarFallback>
                                 </Avatar>
                             </div>
@@ -97,7 +102,7 @@ const MainNav = ({items, children}) => {
                             </DropdownMenuItem>
 
                             <DropdownMenuItem className="cursor-pointer" asChild>
-                                <Link href=''>Logout</Link>
+                                <Link href='' onClick={handleLogout}>Logout</Link>
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
@@ -107,7 +112,7 @@ const MainNav = ({items, children}) => {
                     className='flex items-center space-x-2 lg:hidden'
                     onClick={() => setShowMobileMenu(!showMobileMenu)}
                 >
-                    {showMobileMenu ? <X /> : <Menu />}
+                    {showMobileMenu ? <X/> : <Menu/>}
                 </button>
             </nav>
         </>
