@@ -7,8 +7,12 @@ import {Button, buttonVariants} from './ui/button';
 import {Menu} from 'lucide-react';
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from './ui/dropdown-menu';
 import {Avatar, AvatarFallback, AvatarImage} from './ui/avatar';
+import {useSession, signOut} from "next-auth/react";
 
 const MobileNav = ({items, children}) => {
+    const {data: session, status} = useSession();
+    const isLoading = status === "loading";
+    const isAuthenticated = status === "authenticated";
     useLockBody();
 
     return (
@@ -32,30 +36,30 @@ const MobileNav = ({items, children}) => {
                         ))
                     }
                 </nav>
-                <div className='items-center gap-3 flex lg:hidden'>
-                    <Link href='/login' className={cn(buttonVariants({size: "sm"}), "px-4")}>
-                        Login
-                    </Link>
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="outline" size="sm">Register</Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="w-56 mt-4">
-                            <DropdownMenuItem className="cursor-pointer">
-                                <Link href='/register/student'>Student</Link>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem className="cursor-pointer">
-                                <Link href='/resiter/instructor'>Instructor</Link>
-                            </DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+                {
+                    !isLoading && !isAuthenticated && (
+                        <div className='items-center gap-3 flex lg:hidden'>
+                            <Link href='/login' className={cn(buttonVariants({size: "sm"}), "px-4")}>
+                                Login
+                            </Link>
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <Button variant="outline" size="sm">Register</Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end" className="w-56 mt-4">
+                                    <DropdownMenuItem className="cursor-pointer">
+                                        <Link href='/register/student'>Student</Link>
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem className="cursor-pointer">
+                                        <Link href='/resiter/instructor'>Instructor</Link>
+                                    </DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
 
-                </div>
-
-
+                        </div>
+                    )
+                }
             </div>
-
-
         </div>
     );
 };
