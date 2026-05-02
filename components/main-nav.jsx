@@ -39,7 +39,7 @@ const MainNav = ({items, children}) => {
                 }
                 {showMobileMenu && items && (
                     <MobileNav items={items}>{children}</MobileNav>
-                ) }
+                )}
             </div>
 
             <nav className='flex items-center gap-3'>
@@ -52,12 +52,12 @@ const MainNav = ({items, children}) => {
                             <Button variant="outline" size="sm">Register</Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="w-56 mt-4">
-                            <DropdownMenuItem className="cursor-pointer">
-                                <Link href=''>Student</Link>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem className="cursor-pointer">
-                                <Link href=''>Instructor</Link>
-                            </DropdownMenuItem>
+                            <Link href='/register/student'>
+                                <DropdownMenuItem className="cursor-pointer">Student</DropdownMenuItem>
+                            </Link>
+                            <Link href='/register/instructor'>
+                                <DropdownMenuItem className="cursor-pointer">Instructor</DropdownMenuItem>
+                            </Link>
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>
@@ -90,8 +90,9 @@ const MainNav = ({items, children}) => {
 
 
                 </DropdownMenu>
-                <button className='flex items-center space-x-2 lg:hidden' onClick={() => setShowMobileMenu(!showMobileMenu)}>
-                    {showMobileMenu ? <X/> : <Menu/> }
+                <button className='flex items-center space-x-2 lg:hidden'
+                        onClick={() => setShowMobileMenu(!showMobileMenu)}>
+                    {showMobileMenu ? <X/> : <Menu/>}
                 </button>
 
             </nav>

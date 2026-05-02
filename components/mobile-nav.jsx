@@ -1,20 +1,22 @@
 import React from 'react';
 import Link from 'next/link';
-import { cn } from '@/lib/utils';
-import { useLockBody } from '@/hooks/use-lock-body';
-import { X } from 'lucide-react';
-import { Button, buttonVariants } from './ui/button';
-import { Menu } from 'lucide-react';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import {cn} from '@/lib/utils';
+import {useLockBody} from '@/hooks/use-lock-body';
+import {X} from 'lucide-react';
+import {Button, buttonVariants} from './ui/button';
+import {Menu} from 'lucide-react';
+import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from './ui/dropdown-menu';
+import {Avatar, AvatarFallback, AvatarImage} from './ui/avatar';
 
-const MobileNav = ({items,children}) => {
+const MobileNav = ({items, children}) => {
     useLockBody();
 
     return (
-        <div className={cn("fixed inset-0 top-16 z-30 grid h-[calc(100vh-4rem)] grid-flow-row auto-rows-max overflow-auto p-6 pb-32 shadow-md animate-in slide-in-from-bottom-80 lg:hidden")}>
+        <div
+            className={cn("fixed inset-0 top-16 z-30 grid h-[calc(100vh-4rem)] grid-flow-row auto-rows-max overflow-auto p-6 pb-32 shadow-md animate-in slide-in-from-bottom-80 lg:hidden")}>
 
-            <div className='relative z-20 grid gap-6 rounded-md bg-popover p-4 text-popover-foreground shadow-md border'>
+            <div
+                className='relative z-20 grid gap-6 rounded-md bg-popover p-4 text-popover-foreground shadow-md border'>
                 <nav className='grid grid-flow-row auto-rows-auto text-sm'>
                     {
                         items.map((item, index) => (
@@ -40,10 +42,10 @@ const MobileNav = ({items,children}) => {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="w-56 mt-4">
                             <DropdownMenuItem className="cursor-pointer">
-                                <Link href=''>Student</Link>
+                                <Link href='/register/student'>Student</Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem className="cursor-pointer">
-                                <Link href=''>Instructor</Link>
+                                <Link href='/resiter/instructor'>Instructor</Link>
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
