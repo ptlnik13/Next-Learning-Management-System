@@ -8,12 +8,23 @@ const {auth} = NextAuth(authConfig);
 
 export default auth((req) => {
     const {nextUrl} = req;
+    const {pathname} = nextUrl;
     const isAuthenticated = !!req.auth;
 
-    const isPublicRoute = PUBLIC_ROUTES.some(route => nextUrl.pathname.startsWith(route))
-        || nextUrl.pathname === ROOT;
+    const isPublicRoute =
+        pathname === ROOT ||
+        PUBLIC_ROUTES.some((route) => pathname === route || pathname.startsWith(`${route}/`));
 
-    if (!isAuthenticated && !isPublicRoute) return NextResponse.redirect(new URL(LOGIN, nextUrl));
+    const isAuthRoute = pathname === LOGIN || pathname.startsWith("/register");
+
+    if (isAuthenticated && isAuthRoute) {
+        return NextResponse.redirect(new URL(ROOT, nextUrl));
+    }
+
+    if (!isAuthenticated && !isPublicRoute) {
+        return NextResponse.redirect(new URL(LOGIN, nextUrl));
+    }
+
     return NextResponse.next();
 });
 
