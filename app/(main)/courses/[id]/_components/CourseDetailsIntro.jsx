@@ -4,7 +4,8 @@ import {buttonVariants} from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
 
-const CourseDetailsIntro = ({title, subtitle, thumbnail}) => {
+const CourseDetailsIntro = ({course}) => {
+    const {title, subtitle, thumbnail, price} = course;
     return (
         <div className="overflow-x-hidden  grainy">
             <section className="pt-12  sm:pt-16">
@@ -33,6 +34,14 @@ const CourseDetailsIntro = ({title, subtitle, thumbnail}) => {
                                     )}
                                 >
                                     See Intro
+                                </Link>
+                                <Link
+                                    href=""
+                                    className={cn(
+                                        buttonVariants({variant: "destructive", size: "lg"})
+                                    )}
+                                >
+                                    Price: ${price}
                                 </Link>
                             </div>
                         </div>

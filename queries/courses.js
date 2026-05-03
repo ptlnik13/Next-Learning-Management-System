@@ -4,8 +4,8 @@ import {User} from "@/model/user-model";
 import {Testimonial} from "@/model/testimonial-model";
 import {Module} from "@/model/module-model";
 import {replaceMongoIdInArray, replaceMongoIdInObject} from "@/lib/convertData";
-import { getEnrollmentsForCourse } from "./enrollments";
-import { getTestimonialsForCourse } from "./testimonials";
+import {getEnrollmentsForCourse} from "./enrollments";
+import {getTestimonialsForCourse} from "./testimonials";
 
 export async function getCourseList() {
     const courses = await Course.find({}).select(['title', 'subtitle', 'thumbnail', 'modules', 'price', 'category', 'instructor']).populate({
@@ -49,25 +49,23 @@ export async function getCourseDetails(id) {
 }
 
 
-export async function getCourseDetailsByInstructor(instructorId){
-    const courses = await Course.find({instructor: instructorId }).lean();
+export async function getCourseDetailsByInstructor(instructorId) {
+    const courses = await Course.find({instructor: instructorId}).lean();
 
     const enrollments = await Promise.all(
         courses.map(async (course) => {
-            const enrollment = await getEnrollmentsForCourse(course.
-            _id.toString());
+            const enrollment = await getEnrollmentsForCourse(course._id.toString());
             return enrollment;
         })
     );
 
-    const totalEnrollments = enrollments.reduce(( item, currentValue )=> {
-        return item.length + currentValue.length;
-    });
+    const totalEnrollments = enrollments.reduce((acc, obj) => {
+        return acc + obj.length;
+    }, 0);
 
     const tesimonials = await Promise.all(
         courses.map(async (course) => {
-            const tesimonial = await getTestimonialsForCourse(course.
-            _id.toString());
+            const tesimonial = await getTestimonialsForCourse(course._id.toString());
             return tesimonial;
         })
     );
@@ -75,12 +73,12 @@ export async function getCourseDetailsByInstructor(instructorId){
     const totalTestimonials = tesimonials.flat();
     const avgRating = (totalTestimonials.reduce(function (acc, obj) {
         return acc + obj.rating;
-    },0)) / totalTestimonials.length;
+    }, 0)) / totalTestimonials.length;
 
     return {
-        "courses" : courses.length,
+        "courses"    : courses.length,
         "enrollments": totalEnrollments,
-        "reviews" : totalTestimonials.length,
-        "ratings" : avgRating.toPrecision(2)
+        "reviews"    : totalTestimonials.length,
+        "ratings"    : avgRating.toPrecision(2)
     }
 }
