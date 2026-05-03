@@ -15,7 +15,6 @@ import {useRouter} from "next/navigation";
 
 export function SignupForm({role}) {
 
-    console.log(role);
     const router = useRouter();
 
     async function onSubmit(event) {
